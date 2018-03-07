@@ -1,5 +1,7 @@
 package builder;
 
+import builder2.ComputerBuilder;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -14,7 +16,14 @@ public class Main {
 		
 		
 		//강좌 두번째
+		builder2.Computer computer=ComputerBuilder
+				.start()
+				.setCpu("a")
+				.setRam("asdf")
+				.build();
 		
+		
+		System.out.println(computer.toString());
 		
 	}
 
