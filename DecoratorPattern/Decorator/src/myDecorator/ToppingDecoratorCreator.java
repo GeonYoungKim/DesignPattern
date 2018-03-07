@@ -135,7 +135,7 @@ public class ToppingDecoratorCreator extends Order {
 			panel.add(paperony_btn);
 			panel.add(exit_btn);
 			this.add(panel);
-			setBounds(500, 500, 500, 500);
+			setBounds(500, 500, 800, 200);
 			setVisible(true);
 
 		}

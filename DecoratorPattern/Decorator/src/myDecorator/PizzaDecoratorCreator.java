@@ -158,7 +158,7 @@ public class PizzaDecoratorCreator extends Order {
 			panel.add(sweetpotato_btn);
 			panel.add(exit_btn);
 			this.add(panel);
-			setBounds(500, 500, 500, 500);
+			setBounds(300, 300, 800, 200);
 			setVisible(true);
 			
 		}

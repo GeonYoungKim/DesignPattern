@@ -42,7 +42,7 @@ public class MainFrame extends JFrame {
 		btn.setSize(500, 500);
 		this.add(btn);
 
-		setBounds(500, 500, 500, 500);
+		setBounds(100, 100, 200, 200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
