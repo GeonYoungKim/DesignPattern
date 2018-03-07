@@ -1,0 +1,11 @@
+package strategy;
+
+public class Sword extends Weapon {
+
+	@Override
+	public void attack() {
+		System.out.println("검 공격");
+		
+	}
+
+}
