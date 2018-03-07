@@ -13,33 +13,62 @@ import myDecorator.PizzaDecoratorCreator.MenuFrame;
 
 public class ToppingDecoratorCreator extends Order {
 	private int toppingtotal = 0;
-	ToppingDecoratorCreator Topping;
-	Order order;
-	Order order2;
+	private ToppingDecoratorCreator Topping;
+	private Order topping_order;
+	private Order clone_order;
 	MainFrame main=MainFrame.getInstance();
+	
 	public ToppingDecoratorCreator(Object ob) {
 		// TODO Auto-generated constructor stub
-		order=this;
-		order2=(Order)ob;
+		super();
+		topping_order=this;
+		clone_order=(Order)ob;
 	}
 
 	@Override
-	public int getPriceTotal() {
+	public int getPriceTotal(Order order) {
 		
-		order2.setTotal(order2.getPriceTotal() + getToppingPrice());
+		order.setTotal(order.getPriceTotal(order) + getToppingPrice());
 		
-		System.out.println(order2.getTotal()+"토핑 추가");
-		return order2.getTotal();
+		return clone_order.getTotal();
 	};
 
 	public int getToppingPrice() {
-		return this.toppingtotal;
+		return getToppingtotal();
+	}
+	
+	public int getToppingtotal() {
+		return toppingtotal;
 	}
 
-	private int addToppingPrice() {
+	public void setToppingtotal(int toppingtotal) {
+		this.toppingtotal = toppingtotal;
+	}
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
 		new ToppingFrame();
-		return toppingtotal;
+	}
 
+	@Override
+	public void amount_price_increase(Order order,int number) {
+		if(number==1) {
+			System.out.println("치즈 토핑를 추가하셨습니다.");
+			
+		}else if(number==2) {
+			System.out.println("버섯 토핑를 추가하셨습니다.");
+			
+		}else if(number==3){
+			System.out.println("페퍼로니 토핑를 추가하셨습니다.");
+			
+		}else {
+			System.out.println("해당 토핑은 없습니다.");
+		}
+		// TODO Auto-generated method stub
+		Topping = (ToppingDecoratorCreator) order;
+		toppingtotal += Topping.getToppingPrice();
+		topping_order.getPriceTotal(clone_order);
+		toppingtotal = 0;
 	}
 
 	class ToppingFrame extends JFrame {
@@ -54,10 +83,7 @@ public class ToppingDecoratorCreator extends Order {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					Topping = new Cheeze(order2);
-					toppingtotal += Topping.getToppingPrice();
-					order.getPriceTotal();
-					toppingtotal = 0;
+					amount_price_increase(new Cheeze(clone_order),1);
 				}
 			});
 
@@ -67,10 +93,7 @@ public class ToppingDecoratorCreator extends Order {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					Topping = new MushRoom(order2);
-					toppingtotal += Topping.getToppingPrice();
-					order.getPriceTotal();
-					toppingtotal = 0;
+					amount_price_increase(new MushRoom(clone_order),2);
 					
 				}
 			});
@@ -81,10 +104,7 @@ public class ToppingDecoratorCreator extends Order {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					Topping = new Peparony(order2);
-					toppingtotal += Topping.getToppingPrice();
-					order.getPriceTotal();
-					toppingtotal = 0;
+					amount_price_increase(new Peparony(clone_order),3);
 				}
 			});
 
@@ -110,9 +130,5 @@ public class ToppingDecoratorCreator extends Order {
 
 	}
 
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-		new ToppingFrame();
-	}
+	
 }

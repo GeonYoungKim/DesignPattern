@@ -1,32 +1,25 @@
 package myDecorator;
 
 abstract public class Order {
-	private int total=0;
-	private boolean exit=false;
 	
-
+	private int total=0;
+	
+	
+	
 	public void setTotal(int total) {
 		this.total = total;
 	}
-
-	public boolean isExit() {
-		return exit;
-	}
-
-	public void setExit(boolean exit) {
-		this.exit = exit;
-	}
-
 	
 	public int getTotal() {
 		return total;
 	};
 	
-	public int getPriceTotal() {
-		return getTotal();
+	public int getPriceTotal(Order order) {
+		return order.getTotal();
 	}
 
 	abstract public void show();
+	abstract public void amount_price_increase(Order order,int number);
 	public Order clone() {
 		return this;
 	};

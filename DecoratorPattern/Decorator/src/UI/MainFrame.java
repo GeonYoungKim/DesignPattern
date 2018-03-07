@@ -14,7 +14,6 @@ import myDecorator.ToppingDecoratorCreator;
 
 public class MainFrame extends JFrame {
 	
-	
 	Order order;
 	
 	private static MainFrame mainFrame = null;

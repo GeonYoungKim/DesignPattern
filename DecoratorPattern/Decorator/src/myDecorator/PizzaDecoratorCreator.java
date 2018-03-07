@@ -14,44 +14,69 @@ import UI.MainFrame;
 
 
 public class PizzaDecoratorCreator extends Order {
-	int pizzatotal = 0;
-	Order order;
-	Order o;
-	public Order pizzaclone() {
-		o=super.clone();
-		System.out.println(o);
-		return o;
+	private int pizzatotal = 0;
+	
+	private Order pizza_order;
+	private Order super_order;
+	
+	private PizzaDecoratorCreator Pizza;
+	SingleTon singleton=SingleTon.getInstance();
+	MainFrame main=MainFrame.getInstance();
+	
+	public int getPizzatotal() {
+		return pizzatotal;
+	}
+
+
+	public void setPizzatotal(int pizzatotal) {
+		this.pizzatotal = pizzatotal;
 	}
 	
-	
 	public PizzaDecoratorCreator() {
-		
-		order=this;
+		super();
+		pizza_order=this;
+		super_order=super.clone();
 	}
 	public void show(){
 		new MenuFrame();
 	}
-	PizzaDecoratorCreator Pizza;
-	SingleTon singleton=SingleTon.getInstance();
-	MainFrame main=MainFrame.getInstance();
 	
 	@Override
-	public int getPriceTotal() {
+	public int getPriceTotal(Order order) {
 		
-		super.setTotal( super.getPriceTotal() + getPizzaPrice());
-		System.out.println(super.getTotal()+"pizza 추가");
+		super.setTotal(super.getPriceTotal(order) + getPizzaPrice());
 		
-		return super.getTotal();
+		return order.getTotal();
 	};
 	public int getPizzaPrice() {
-		return this.pizzatotal;
+		return getPizzatotal();
 	}
-	
 	
 	private int getSuperTotal() {
 		return super.getTotal();
 	}
 	
+	public void amount_price_increase(Order order,int number) {
+		if(number==1) {
+			System.out.println("콤비네이션 피자를 선택하셨습니다. 해당 피자에 추가하고픈 토핑들을 추가하세요");
+			
+		}else if(number==2) {
+			System.out.println("포테이토 피자를 선택하셨습니다. 해당 피자에 추가하고픈 토핑들을 추가하세요");
+			
+		}else if(number==3){
+			System.out.println("고구마 피자를 선택하셨습니다. 해당 피자에 추가하고픈 토핑들을 추가하세요");
+			
+		}else {
+			System.out.println("해당 피자는 없습니다.");
+		}
+		Pizza=(PizzaDecoratorCreator) order;
+		pizzatotal+=Pizza.getPizzaPrice();
+		singleton.plus();
+		pizza_order.getPriceTotal(super_order);
+		pizzatotal=0;
+		main.topping_frame(super.clone());
+		
+	}
 	
 	class MenuFrame extends JFrame{
 		
@@ -66,13 +91,7 @@ public class PizzaDecoratorCreator extends Order {
 				@Override
 				public void actionPerformed(ActionEvent e){
 					// TODO Auto-generated method stub
-					System.out.println("콤비");
-					Pizza=new Combination();
-					pizzatotal+=Pizza.getPizzaPrice();
-					singleton.plus();
-					order.getPriceTotal();
-					pizzatotal=0;
-					main.topping_frame(pizzaclone());
+					amount_price_increase(new Combination(),1);
 					
 				}
 			});
@@ -83,12 +102,7 @@ public class PizzaDecoratorCreator extends Order {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					Pizza=new Potato();
-					pizzatotal+=Pizza.getPizzaPrice();
-					singleton.plus();
-					order.getPriceTotal();
-					pizzatotal=0;
-					main.topping_frame(pizzaclone());
+					amount_price_increase(new Potato(),2);
 					
 				}
 			});
@@ -99,12 +113,7 @@ public class PizzaDecoratorCreator extends Order {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					Pizza=new SweetPotato();
-					pizzatotal+=Pizza.getPizzaPrice();
-					singleton.plus();
-					order.getPriceTotal();
-					pizzatotal=0;
-					main.topping_frame(pizzaclone());
+					amount_price_increase(new SweetPotato(),3);
 				}
 			});
 			
@@ -114,7 +123,8 @@ public class PizzaDecoratorCreator extends Order {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					System.out.println("총 주문 금액은 무엇입니다."+o.getPriceTotal());
+					System.out.println("총 판매 피자 갯수는 "+singleton.getPizza_count());
+					System.out.println("총 주문 금액은 무엇입니다."+super_order.getPriceTotal(super_order));
 					dispose();
 					
 				}

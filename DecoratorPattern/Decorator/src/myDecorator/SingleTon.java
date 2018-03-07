@@ -19,7 +19,7 @@ public class SingleTon {
 
     public void plus() {
     	this.pizza_count++;
-    	System.out.println(this.pizza_count);
+    	
     }
 
 }
