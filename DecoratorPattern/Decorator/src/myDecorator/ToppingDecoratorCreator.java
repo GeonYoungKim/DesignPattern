@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import UI.MainFrame;
-import myDecorator.PizzaDecoratorCreator.MenuFrame;
+import UI.ToppingFrame;
+import UI.AbstrackFrame;
+
 import myDecorator.Topping.Cheeze;
 import myDecorator.Topping.MushRoom;
 import myDecorator.Topping.Peparony;
@@ -32,7 +34,7 @@ public class ToppingDecoratorCreator extends Order {
 	//자기 자신을 가리키는 객체
 	private Order topping_order;
 	//인자로 받은 Order객체
-	private Order clone_order;
+	private Order super_order;
 	
 	//얕은복사물 Order인스턴스 전달 받음.
 	public ToppingDecoratorCreator(Object ob) {
@@ -40,14 +42,14 @@ public class ToppingDecoratorCreator extends Order {
 		super();
 		//각각 자신과 부모 객체 할당
 		topping_order=this;
-		clone_order=(Order)ob;
+		super_order=(Order)ob;
 	}
 
 	//데코레이터 패턴으로 자신만의 메소드 꾸미기(메소드 오버라이드)
 	@Override
 	public int getPriceTotal(Order order) {		
 		order.setTotal(order.getPriceTotal(order) + getToppingPriceDeco());
-		return clone_order.getTotal();
+		return super_order.getTotal();
 	};
 
 	//ToppingDecoratorCreator에 데코레이터를 위한 기본 메소드
@@ -59,7 +61,9 @@ public class ToppingDecoratorCreator extends Order {
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		new ToppingFrame();
+		AbstrackFrame toppingframe=new ToppingFrame(topping_order,super_order);
+		//부모 클래스의 메소드인 create를 호출하여 각각 나눈 메소드들을 한번에 실행시킨다.
+		toppingframe.create();
 	}
 	//토핑 종류 버튼 선택시 각각에 맞도록 실행하는 메소드
 	@Override
@@ -79,67 +83,8 @@ public class ToppingDecoratorCreator extends Order {
 		// TODO Auto-generated method stub
 		Topping = (ToppingDecoratorCreator) order;
 		topping_price += Topping.getToppingPriceDeco();
-		topping_order.getPriceTotal(clone_order);
+		topping_order.getPriceTotal(super_order);
 		topping_price = 0;
-	}
-
-	class ToppingFrame extends JFrame {
-		public ToppingFrame() {
-			// TODO Auto-generated constructor stub
-			super("토핑프레임 ");
-			JPanel panel = new JPanel();
-
-			Button cheeze_btn = new Button("cheeze");
-			cheeze_btn.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// cheeze버튼 클릭 시 수행
-					amount_price_increase(new Cheeze(clone_order),1);
-				}
-			});
-
-			Button mushroom_btn = new Button("mushroom");
-			mushroom_btn.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// mushroom버튼 클릭 시 수행
-					amount_price_increase(new MushRoom(clone_order),2);
-					
-				}
-			});
-
-			Button paperony_btn = new Button("paperony");
-			paperony_btn.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// paperony버튼 클릭 시 수행
-					amount_price_increase(new Peparony(clone_order),3);
-				}
-			});
-
-			Button exit_btn = new Button("Quit");
-			exit_btn.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					//토핑 선택 끝 버튼 수행
-					dispose();
-
-				}
-			});
-			panel.add(cheeze_btn);
-			panel.add(mushroom_btn);
-			panel.add(paperony_btn);
-			panel.add(exit_btn);
-			this.add(panel);
-			setBounds(500, 500, 800, 200);
-			setVisible(true);
-
-		}
-
 	}
 
 	
