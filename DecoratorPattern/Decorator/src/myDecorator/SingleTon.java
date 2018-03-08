@@ -2,13 +2,19 @@ package myDecorator;
 
 public class SingleTon {
     private static SingleTon singleTon = null;
-    public static synchronized SingleTon getInstance() {
+    private int pizza_count;
+    
+    public SingleTon() {
+    	pizza_count=0;
+	}
+    
+    public static SingleTon getInstance() {
         if (singleTon == null) {
         	singleTon = new SingleTon();
         }
         return singleTon;
     }
-    private int pizza_count;
+    
     
 	public int getPizza_count() {
 		return pizza_count;

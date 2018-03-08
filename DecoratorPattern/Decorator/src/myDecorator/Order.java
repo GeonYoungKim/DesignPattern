@@ -23,6 +23,10 @@ abstract public class Order {
 	abstract public void show();
 	//각 선택시 해야할 사항이 있어 추상 메소드 선언
 	abstract public void amount_price_increase(Order order,int number);
+	
+	abstract public void choice(int number);
+	
+	
 	//얕은 복사 메소드 - 프로토타입 패턴
 	public Order clone() {
 		return this;

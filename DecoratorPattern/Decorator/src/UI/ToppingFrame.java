@@ -14,18 +14,18 @@ import myDecorator.Topping.Peparony;
 //템플릿 패턴의 자식 클래스 -> 조각조각인 추상 메소드들 작성해야 한다.
 public class ToppingFrame extends AbstrackFrame {
 	JPanel panel;
-	Button cheeze_btn;
-	Button mushroom_btn;
-	Button paperony_btn;
-	Button exit_btn;
-	Order topping_order,super_order;
+	Button btnCheeze;
+	Button btnMushroom;
+	Button btnPaperony;
+	Button btnExit;
+	Order orderTopping,orderSuper;
 	
 	//생성자
-	public ToppingFrame(Order topping_order,Order super_order) {
+	public ToppingFrame(Order orderTopping,Order orderSuper) {
 		// TODO Auto-generated constructor stub
 		super("토핑프레임 ");
-		this.topping_order=topping_order;
-		this.super_order=super_order;
+		this.orderTopping=orderTopping;
+		this.orderSuper=orderSuper;
 		
 	}
 
@@ -39,13 +39,13 @@ public class ToppingFrame extends AbstrackFrame {
 	@Override
 	public void makeButton1() {
 		// TODO Auto-generated method stub
-		cheeze_btn = new Button("cheeze - 1000");
-		cheeze_btn.addActionListener(new ActionListener() {
+		btnCheeze = new Button("cheeze - 1000");
+		btnCheeze.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// cheeze버튼 클릭 시 수행
-				topping_order.amount_price_increase(new Cheeze(super_order),1);
+				orderTopping.amount_price_increase(new Cheeze(orderSuper),1);
 			}
 		});
 	}
@@ -54,13 +54,13 @@ public class ToppingFrame extends AbstrackFrame {
 	@Override
 	public void makeButton2() {
 		// TODO Auto-generated method stub
-		mushroom_btn = new Button("mushroom - 500");
-		mushroom_btn.addActionListener(new ActionListener() {
+		btnMushroom = new Button("mushroom - 500");
+		btnMushroom.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// mushroom버튼 클릭 시 수행
-				topping_order.amount_price_increase(new MushRoom(super_order),2);
+				orderTopping.amount_price_increase(new MushRoom(orderSuper),2);
 				
 			}
 		});
@@ -70,13 +70,13 @@ public class ToppingFrame extends AbstrackFrame {
 	@Override
 	public void makeButton3() {
 		// TODO Auto-generated method stub
-		paperony_btn = new Button("paperony - 2000");
-		paperony_btn.addActionListener(new ActionListener() {
+		btnPaperony = new Button("paperony - 2000");
+		btnPaperony.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// paperony버튼 클릭 시 수행
-				topping_order.amount_price_increase(new Peparony(super_order),3);
+				orderTopping.amount_price_increase(new Peparony(orderSuper),3);
 			}
 		});
 
@@ -86,8 +86,8 @@ public class ToppingFrame extends AbstrackFrame {
 	@Override
 	public void makeButton4() {
 		// TODO Auto-generated method stub
-		exit_btn = new Button("Quit");
-		exit_btn.addActionListener(new ActionListener() {
+		btnExit = new Button("Quit");
+		btnExit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -101,10 +101,10 @@ public class ToppingFrame extends AbstrackFrame {
 	@Override
 	public void settingFrame() {
 		// TODO Auto-generated method stub
-		panel.add(cheeze_btn);
-		panel.add(mushroom_btn);
-		panel.add(paperony_btn);
-		panel.add(exit_btn);
+		panel.add(btnCheeze);
+		panel.add(btnMushroom);
+		panel.add(btnPaperony);
+		panel.add(btnExit);
 		this.add(panel);
 		setBounds(500, 500, 800, 200);
 		setVisible(true);

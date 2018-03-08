@@ -8,9 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import myDecorator.Order;
-import myDecorator.PizzaDecoratorCreator;
+import myDecorator.PizzaDecorator;
 import myDecorator.SingleTon;
-import myDecorator.ToppingDecoratorCreator;
+import myDecorator.ToppingDecorator;
 
 public class MainFrame extends JFrame {
 	
@@ -34,7 +34,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				//Order버튼을 클릭하면 Order 객체를 상속받은 PizzaDecoratorCreator 인스턴스 생성
-				order = new PizzaDecoratorCreator();
+				order = new PizzaDecorator();
 				//생성 후 피자 선택 프레임을 보여지게 하는 메소드 실행
 				order.show();
 			}
@@ -46,12 +46,17 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
-	public void topping_frame(Object ob) {
+	public void topping_frame(Order order) {
 		//이 부분은 피자를 선택하게 되면 계산 로직이 끝난 후 PizzaDecoratorCreator 인스턴스에서 호출하는 메소드
 		//ToppingDecoratorCreator 인스턴스를 생성 인자값은 하나의 주문으로 피자와 토핑들의 총 가격을 누적해야 하기 때문에 첫 인스턴스인 PizzaDecoratorCreator의 부모클래스를 인자로 받는다.
-		order = new ToppingDecoratorCreator(ob);
+		this.order = new ToppingDecorator(order);
 		//토핑 선택 프레임 생성 메소드
-		order.show();
+		this.order.show();
+		
+	}
+
+	public static void start() {
+		mainFrame = new MainFrame();
 		
 	}
 
