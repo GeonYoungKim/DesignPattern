@@ -45,7 +45,7 @@ public class ToppingFrame extends AbstrackFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// cheeze버튼 클릭 시 수행
-				topping_order.amount_price_increase(new Cheeze(super_order),1);
+				topping_order.amount_price_increase(/*new Cheeze(super_order),*/1);
 			}
 		});
 	}

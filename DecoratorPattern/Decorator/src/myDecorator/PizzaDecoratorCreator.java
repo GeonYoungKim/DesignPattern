@@ -13,12 +13,15 @@ import UI.MainFrame;
 import UI.MenuFrame;
 import UI.AbstrackFrame;
 import myDecorator.Pizza.Combination;
+import myDecorator.Pizza.Pinterface;
 import myDecorator.Pizza.Potato;
 import myDecorator.Pizza.SweetPotato;
 
 
 
 public class PizzaDecoratorCreator extends Order {
+	
+	Pinterface Pizzain;
 	
 	//피자 선택 시 마다 피자의 가격을 받아올 그릇
 	private int pizza_price = 0;
@@ -79,15 +82,17 @@ public class PizzaDecoratorCreator extends Order {
 	
 	//피자 종류 버튼 선택시 각각에 맞도록 실행하는 메소드
 	public void amount_price_increase(Order order,int number) {
+		
 		if(number==1) {
-			System.out.println("콤비네이션 피자를 선택하셨습니다. 해당 피자에 추가하고픈 토핑들을 추가하세요");
+//			System.out.println("콤비네이션 피자를 선택하셨습니다. 해당 피자에 추가하고픈 토핑들을 추가하세요");
+			Pizzain=new Combination();
 			
 		}else if(number==2) {
-			System.out.println("포테이토 피자를 선택하셨습니다. 해당 피자에 추가하고픈 토핑들을 추가하세요");
-			
+//			System.out.println("포테이토 피자를 선택하셨습니다. 해당 피자에 추가하고픈 토핑들을 추가하세요");
+			Pizzain=new Potato();
 		}else if(number==3){
-			System.out.println("고구마 피자를 선택하셨습니다. 해당 피자에 추가하고픈 토핑들을 추가하세요");
-			
+//			System.out.println("고구마 피자를 선택하셨습니다. 해당 피자에 추가하고픈 토핑들을 추가하세요");
+			Pizzain=new SweetPotato();
 		}else {
 			System.out.println("해당 피자는 없습니다.");
 		}
@@ -98,11 +103,12 @@ public class PizzaDecoratorCreator extends Order {
 		//피자 누적 총계 증가
 		singleton.plus();
 		//PizzaDecoratorCreator의 데코레이터 메소드 수행
-		pizza_order.getPriceTotal(super_order);
+		pizza_order.getPriceTotal(pizza_order);
 		//0으로 만듬 -> 누적은 Order에서 계산하기 때문에 클릭 시마다의 값만 누적해줌
 		pizza_price=0;
 		//토핑 프레임 실행, 부모(Order)객체 인자값 전달
-		main.topping_frame(super.clone());
+//		main.topping_frame(super.clone());
+		main.topping_frame(Pizzain);
 		
 	}
 	

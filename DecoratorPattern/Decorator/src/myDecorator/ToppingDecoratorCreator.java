@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import UI.MainFrame;
 import UI.ToppingFrame;
 import UI.AbstrackFrame;
-
+import myDecorator.Pizza.Pinterface;
 import myDecorator.Topping.Cheeze;
 import myDecorator.Topping.MushRoom;
 import myDecorator.Topping.Peparony;
@@ -36,13 +36,15 @@ public class ToppingDecoratorCreator extends Order {
 	//인자로 받은 Order객체
 	private Order super_order;
 	
+	private Pinterface pinterface;
 	//얕은복사물 Order인스턴스 전달 받음.
 	public ToppingDecoratorCreator(Object ob) {
 		
 		super();
 		//각각 자신과 부모 객체 할당
 		topping_order=this;
-		super_order=(Order)ob;
+//		super_order=ob;
+		pinterface=(Pinterface) ob;
 	}
 
 	//데코레이터 패턴으로 자신만의 메소드 꾸미기(메소드 오버라이드)
@@ -67,21 +69,23 @@ public class ToppingDecoratorCreator extends Order {
 	}
 	//토핑 종류 버튼 선택시 각각에 맞도록 실행하는 메소드
 	@Override
-	public void amount_price_increase(Order order,int number) {
+	public void amount_price_increase(/*Order order,*/int number) {
 		if(number==1) {
 			System.out.println("치즈 토핑를 추가하셨습니다.");
-			
+			pinterface=new Cheeze(pinterface);
 		}else if(number==2) {
 			System.out.println("버섯 토핑를 추가하셨습니다.");
-			
+			pinterface=new MushRoom(pinterface);
 		}else if(number==3){
 			System.out.println("페퍼로니 토핑를 추가하셨습니다.");
-			
+			pinterface=new Peparony(pinterface);
 		}else {
 			System.out.println("해당 토핑은 없습니다.");
 		}
+		
+		System.out.println(pinterface.getName());
 		// TODO Auto-generated method stub
-		Topping = (ToppingDecoratorCreator) order;
+		//Topping = (ToppingDecoratorCreator) order;
 		topping_price += Topping.getToppingPriceDeco();
 		topping_order.getPriceTotal(super_order);
 		topping_price = 0;
