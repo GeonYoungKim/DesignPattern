@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Directory extends Entry{
@@ -40,7 +41,7 @@ public class Directory extends Entry{
 	}
 
 	@Override
-	public void iterate() {
-		dir.iterator();
+	public Iterator<Entry> iterate() {
+		return dir.iterator();
 	}
 }

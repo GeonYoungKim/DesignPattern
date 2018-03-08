@@ -1,19 +1,34 @@
+import java.util.Iterator;
 
 public class ListVisitor extends Visitor{
 
-//	private String currentdir;
+	private String currentDir;
+	
+	public ListVisitor() {
+		currentDir="";
+	}
 	@Override
 	public void visit(File file) {
-		System.out.println("/"+file.getName());
+		System.out.println(currentDir+"/"+file.getName());
 		
 	}
 
 	@Override
 	public void visit(Directory directory) {
-		System.out.println("/"+directory.getName());
-//		while(directory.iterate())
+		System.out.println(currentDir+"/"+directory.getName());
 		
-		directory.accept(this);
+		String saveDir=currentDir;
+		
+		currentDir=currentDir+"/"+directory.getName();
+		
+		Iterator<Entry> entries=directory.iterate();
+		
+		while(entries.hasNext()) {
+			entries.next().accept(this);
+		}
+		
+		currentDir=saveDir;
+		
 	}
 
 }
