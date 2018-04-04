@@ -1,11 +1,11 @@
 package bridge;
 
-public class Morsecode {
+public class MorseCode {
 
 	MorseCodeFunc morseCodeFunc;
 	
 	
-	public Morsecode(MorseCodeFunc morseCodeFunc) {
+	public MorseCode(MorseCodeFunc morseCodeFunc) {
 		super();
 		this.morseCodeFunc = morseCodeFunc;
 	}

@@ -8,8 +8,6 @@ public class Main {
 		Colleague colleague2=new ConcreateColleague2();
 		Colleague colleague3=new ConcreateColleague3();
 		
-		
-		
 		colleague1.registerMediator(mediator);
 		colleague2.registerMediator(mediator);
 		colleague3.registerMediator(mediator);

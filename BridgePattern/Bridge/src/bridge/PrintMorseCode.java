@@ -1,6 +1,6 @@
 package bridge;
 
-public class PrintMorseCode extends Morsecode {
+public class PrintMorseCode extends MorseCode {
 
 	public PrintMorseCode(MorseCodeFunc morseCodeFunc) {
 		super(morseCodeFunc);
